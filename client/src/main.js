@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
-import './style.css'
+// import './style.css'
 import 'primeflex/primeflex.css' 
 import 'primeicons/primeicons.css'
+import "primevue/resources/themes/lara-light-indigo/theme.css"
 import App from './App.vue'
 import PrimeVue from 'primevue/config'
 import { createRouter, createWebHashHistory } from 'vue-router'

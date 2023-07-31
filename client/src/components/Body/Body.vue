@@ -14,31 +14,26 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="flex flex-row flex-wrap">
-        <div v-for="item in data" class="flex align-items-center justify-content-center p-2">
-            <Card class="shadow-2 py-4" :pt="{ root: { class: 'border-solid border-1 border-round-lg' } }" style="width: 25em; height: 25em">
-                <template #header>
-                    <img alt="user header" class="shadow-2 max-w-5rem max-h-4rem" :src="item.logo"  />
-                </template>
-                <template #title> <h3>{{ item.name }}</h3> </template>
-                <template #content>
-                    <p>
-                        {{ item.description }}
-                    </p>
-                    <p>
-                        {{ item.language }}
-                    </p>
-                    <p>
-                        Latest Version: {{ item.latest_version }}
-                    </p>
-                </template>
-                <template #footer>
-                    <a :href="item.github" target="_blank"><Button icon="pi pi-github" /></a>
-                    <a :href="item.website" target="_blank"><Button icon="pi pi-external-link" style="margin-left: 0.5em" /></a>
-                    <a :href="item?.package_url" target="_blank"><Button icon="pi pi-folder-open" style="margin-left: 0.5em" /></a>
-                </template>
-            </Card>
-        </div>
+    <div class="flex flex-row flex-wrap justify-content-center">
+        <Card v-for="item in data" class="mx-4" style="width: 25em">
+            <template #header>
+                <div class="overflow-hidden">
+                    <div class="bg-contain bg-no-repeat bg-center h-20rem w-full" :style="{ backgroundImage: `url(${item.logo})` }"></div>
+                </div>
+            </template>
+            <template #title> {{ item.name }} </template>
+            <template #subtitle> {{ item.language }} - {{ item.latest_version }}</template>
+            <template #content>
+                <p>
+                    {{ item.description }}
+                </p>
+            </template>
+            <template #footer>
+                <a :href="item.github" target="_blank"><Button icon="pi pi-github" class="mx-2" /></a>
+                <a :href="item.website" target="_blank"><Button icon="pi pi-external-link" class="mx-2" /></a>
+                <a :href="item.pypi" target="_blank"><Button icon="pi pi-file" class="mx-2" /></a>
+            </template>
+        </Card>
     </div>
 </template>
 

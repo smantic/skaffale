@@ -5,9 +5,15 @@ import Footer from './components/Footer/Footer.vue'
 </script>
 
 <template>
-    <Header class="absolute top-0 left-0 px-4 mt-3 w-full font-bold" />
-    <Body class="min-h-screen" />
-    <Footer class="bottom-0 left-0 h-full w-full font-bold" />
+    <div class="flex">
+        <Header class="w-full"/>
+    </div>
+    <div class="flex m-5">
+        <Body class="w-full"/>
+    </div>
+    <div class="flex">
+        <Footer class="m-4 w-full"/>
+    </div>
 </template>
 
 <style scoped>
