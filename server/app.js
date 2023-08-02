@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const fs = require('fs')
 const bodyParser = require('body-parser');
 const { JsonDB, Config } = require('node-json-db')
 const app = express()
