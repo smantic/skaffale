@@ -16,8 +16,8 @@ app.use(bodyParser.json())
 
 var db = new JsonDB(new Config("database", true, true, '/'));
 
-app.get('/libraries', (req, res) => {
-  res.send(JSON.parse(fs.readFileSync("./database.json").toString()).libraries)
+app.get('/libraries', async (req, res) => {
+    res.send(await db.getData("/libraries"))
 })
 
 function checkRequiredParameters (jsonBody) {
@@ -34,7 +34,9 @@ function checkRequiredParameters (jsonBody) {
 
 app.post('/newLibrary', async (req, res) => {
     if (await checkRequiredParameters(req.body)) {
-        await db.push('/libraries', req.body, false)
+        const data = await db.getData("/libraries")
+        data.push(req.body)
+        await db.push('/libraries', data)
         res.sendStatus(200)
     } else {
         res.sendStatus(500)
