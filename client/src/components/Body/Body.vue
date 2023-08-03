@@ -2,12 +2,12 @@
 import { onMounted, ref } from 'vue'
 import Card from 'primevue/card'
 import Button from 'primevue/button'
-import { getJsonList } from '../../api/api'
+import { getLibraries } from '../../api/api'
 
 var data = ref([])
 
 onMounted(() => {
-    getJsonList().then((res) => {
+    getLibraries().then((res) => {
         data.value = res.data
     })
 })
@@ -15,7 +15,7 @@ onMounted(() => {
 
 <template>
     <div class="flex flex-row flex-wrap justify-content-center">
-        <Card v-for="item in data" class="mx-4" style="width: 25em">
+        <Card v-for="item in data" class="mx-4 my-4" style="width: 25em">
             <template #header>
                 <div class="overflow-hidden">
                     <div class="bg-contain bg-no-repeat bg-center h-20rem w-full" :style="{ backgroundImage: `url(${item.logo})` }"></div>

@@ -19,6 +19,10 @@ app.get('/libraries', async (req, res) => {
     res.send(await db.getData("/libraries"))
 })
 
+app.get('/projects', async (req, res) => {
+    res.send(await db.getData("/projects"))
+})
+
 function checkRequiredParameters (jsonBody) {
     return new Promise( (resolve) => {
         const requiredProperties = [ 'name', 'description', 'language' ]
@@ -36,6 +40,17 @@ app.post('/newLibrary', async (req, res) => {
         const data = await db.getData("/libraries")
         data.push(req.body)
         await db.push('/libraries', data)
+        res.sendStatus(200)
+    } else {
+        res.sendStatus(500)
+    }
+})
+
+app.post('/newProject', async (req, res) => {
+    if (await checkRequiredParameters(req.body)) {
+        const data = await db.getData("/projects")
+        data.push(req.body)
+        await db.push('/projects', data)
         res.sendStatus(200)
     } else {
         res.sendStatus(500)
