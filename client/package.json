@@ -1,12 +1,14 @@
 {
-  "name": "client",
+  "name": "skaffaleclient",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port 8080",
-    "build": "vite build --port 8080",
-    "preview": "vite preview --port 8080"
+    "build": "vite build",
+    "preview": "vite preview --port 8080",
+    "build-image": "docker build -t skaffaleclient-image .",
+    "run-container": "docker run -d -p 8080:8080 --name skaffaleclient-container skaffaleclient-image"
   },
   "dependencies": {
     "axios": "^1.4.0",
