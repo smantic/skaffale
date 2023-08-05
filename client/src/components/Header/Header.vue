@@ -1,8 +1,5 @@
 <script setup>
 import Toolbar from 'primevue/toolbar'
-import SearchBar from './SearchBar.vue'
-// import FilterButton from './FilterButton.vue';
-import AddButton from './AddButton.vue';
 </script>
 
 <template>
@@ -12,9 +9,6 @@ import AddButton from './AddButton.vue';
         </template>
 
         <template #end>
-            <SearchBar class="mr-2"/>
-            <!-- <FilterButton /> -->
-            <AddButton />
         </template>
     </Toolbar>
 </template>

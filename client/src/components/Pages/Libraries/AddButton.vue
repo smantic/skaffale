@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { postNewLibrary } from '../../api/api'
+import { postNewLibrary } from '../../../api/api'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
