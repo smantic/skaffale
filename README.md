@@ -1,4 +1,4 @@
-# lister
+# skaffale
 Website to list python machine-learning/AI libraries
 
 # ToDo
