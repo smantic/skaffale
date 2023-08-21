@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /listerapi
+WORKDIR /skaffaleapi
 COPY . .
 
 RUN npm install
