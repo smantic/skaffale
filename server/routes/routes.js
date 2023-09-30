@@ -38,7 +38,7 @@ router.get('/projects', async (req, res) => {
 router.post('/newLibrary', async (req, res) => {
     if (await checkRequiredParameters(req.body)) {
         sequelize.sync().then(() => {
-            Library.create({ ...req.body, id: uuid() }).then(result => {
+            Libraries.create({ ...req.body, id: uuid() }).then(result => {
                 res.sendStatus(200)
             }).catch((error) => {
                 console.error('Failed to create a new record : ', error)
