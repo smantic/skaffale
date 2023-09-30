@@ -4,7 +4,7 @@ const sequelize = new Sequelize(
     process.env.POSTGRES_DATABASE,
     process.env.POSTGRES_USER,
     process.env.POSTGRES_PASSWORD,
-    { host: 'localhost', port: 5432, dialect: 'postgres' }
+    { host: 'database', dialect: 'postgres' }
 )
 
 module.exports = sequelize

@@ -1,13 +1,25 @@
 version: '3.8'
 
 services:
+  client:
+    image: skaffaleclient-image
+    build: ./client
+    container_name: skaffaleclient-container
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - server
+
   server:
     image: skaffaleapi-image
-    build: .
+    build: ./server
     container_name: skaffaleapi-container
     restart: always
     ports:
       - 3000:3000
+    depends_on:
+      - database
 
   database:
     image: postgres

@@ -8,7 +8,9 @@
     "build": "vite build",
     "preview": "vite preview --port 8080",
     "build-image": "docker build -t skaffaleclient-image .",
-    "run-container": "docker run -d -p 8080:8080 --name skaffaleclient-container skaffaleclient-image"
+    "run-container": "docker run -d -p 8080:8080 --name skaffaleclient-container skaffaleclient-image",
+    "run-docker-compose": "docker compose up --build -d --remove-orphans",
+    "docker-compose-down": "docker-compose down"
   },
   "dependencies": {
     "axios": "^1.4.0",

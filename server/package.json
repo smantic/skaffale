@@ -9,7 +9,8 @@
     "dev": "nodemon app.js",
     "build-image": "docker build -t skaffaleapi-image .",
     "run-container": "docker run -d -p 3000:3000 --name skaffaleapi-container skaffaleapi-image",
-    "run-docker-compose": "docker compose up --build -d --remove-orphans"
+    "run-docker-compose": "docker compose up --build -d --remove-orphans",
+    "docker-compose-down": "docker-compose down"
   },
   "author": "Luca Comba",
   "license": "ISC",
