@@ -8,14 +8,20 @@
     "run": "node app.js",
     "dev": "nodemon app.js",
     "build-image": "docker build -t skaffaleapi-image .",
-    "run-container": "docker run -d -p 3000:3000 --name skaffaleapi-container skaffaleapi-image"
+    "run-container": "docker run -d -p 3000:3000 --name skaffaleapi-container skaffaleapi-image",
+    "run-docker-compose": "docker compose up --build -d --remove-orphans",
+    "docker-compose-down": "docker-compose down"
   },
   "author": "Luca Comba",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "node-json-db": "^2.2.0"
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.33.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
