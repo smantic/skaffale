@@ -1,13 +1,5 @@
-require('dotenv').config({path: '../.env'})
 const { Sequelize, DataTypes } = require('sequelize')
-const sequelize = new Sequelize(
-    process.env.POSTGRES_DATABASE,
-    process.env.POSTGRES_USER,
-    process.env.POSTGRES_PASSWORD,
-    { host: 'localhost', dialect: 'postgres' }
-)
-const defaultLibrariesData = require('../default/defaultLibrariesData.json')
-const uuid = require('uuid').v4
+const sequelize = require("../connection/connection")
 
 const Libraries = sequelize.define( 'Libraries', {
     name: {
@@ -42,14 +34,9 @@ const Libraries = sequelize.define( 'Libraries', {
         type: DataTypes.STRING
     },
     stars_review: {
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER
     },
   }
 )
-
-defaultLibrariesData.libraries.forEach(async (obj) => {
-    obj.id = uuid()
-    Libraries.create(obj)
-})
 
 module.exports = Libraries

@@ -2,10 +2,10 @@
 SKAFFALE_DATABASE_CONTAINER_NAME="skaffaledatabase-container"
 
 # Set up link to .env
-if [ -f "../.env" ] && [ ! -f "./.env" ]
+if [ ! -f "../.env" ]
 then
-    echo "Creating .env link."
-    ln "../.env" "./.env"
+    echo "Error .env does not exist"
+    exit 1
 fi
 
 # Check if container is up

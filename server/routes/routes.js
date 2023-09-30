@@ -1,49 +1,71 @@
-require('dotenv').config({path: '../../.env'})
+const checkRequiredParameters = require('../utils/validateInputs')
 const express = require('express')
+const Libraries = require('../database/models/libraries')
+const Projects = require('../database/models/projects')
 const router = express.Router()
-const { Sequelize } = require('sequelize')
-const sequelize = new Sequelize( process.env.POSTGRES_DATABASE, 
-                                 process.env.POSTGRES_USER,
-                                 process.env.POSTGRES_PASSWORD, 
-                                 { host: 'localhost', dialect: 'postgres'} 
-                                )
-// connect to database
-try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-} catch (error) {
-    console.error('Unable to connect to the database:', error);
-}
+const sequelize = require("../database/connection/connection")
+const uuid = require('uuid').v4
 
 router.get('/libraries', async (req, res) => {
-    // TO-DO
-    res.send(await db.getData("/libraries"))
+    sequelize.sync().then(() => {
+        Libraries.findAll().then(result => {
+            res.send(result)
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error)
+            res.sendStatus(500)
+        })
+    }).catch((error) => {
+        console.error('Unable to get table : ', error)
+        res.sendStatus(500)
+    })
 })
 
 router.get('/projects', async (req, res) => {
-    // TO-DO
-    res.send(await db.getData("/projects"))
+    sequelize.sync().then(() => {
+        Projects.findAll().then(result => {
+            res.send(result)
+            res.sendStatus(200)
+        }).catch((error) => {
+            console.error('Failed to get data : ', error)
+            res.sendStatus(500)
+        })
+    }).catch((error) => {
+        console.error('Unable to get table : ', error)
+        res.sendStatus(500)
+    })
 })
 
 router.post('/newLibrary', async (req, res) => {
-    // TO-DO
     if (await checkRequiredParameters(req.body)) {
-        const data = await db.getData("/libraries")
-        data.push(req.body)
-        await db.push('/libraries', data)
-        res.sendStatus(200)
+        sequelize.sync().then(() => {
+            Library.create({ ...req.body, id: uuid() }).then(result => {
+                res.sendStatus(200)
+            }).catch((error) => {
+                console.error('Failed to create a new record : ', error)
+                res.sendStatus(500)
+            })
+        }).catch((error) => {
+            console.error('Unable to create table : ', error)
+            res.sendStatus(500)
+        })
     } else {
         res.sendStatus(500)
     }
 })
 
 router.post('/newProject', async (req, res) => {
-    // TO-DO
     if (await checkRequiredParameters(req.body)) {
-        const data = await db.getData("/projects")
-        data.push(req.body)
-        await db.push('/projects', data)
-        res.sendStatus(200)
+        sequelize.sync().then(() => {
+            Projects.create({ ...req.body, id: uuid() }).then(result => {
+                res.sendStatus(200)
+            }).catch((error) => {
+                console.error('Failed to create a new record : ', error)
+                res.sendStatus(500)
+            })
+        }).catch((error) => {
+            console.error('Unable to create table : ', error)
+            res.sendStatus(500)
+        })
     } else {
         res.sendStatus(500)
     }

@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  server:
+    image: skaffaleapi-image
+    build: .
+    container_name: skaffaleapi-container
+    restart: always
+    ports:
+      - 3000:3000
+
   database:
     image: postgres
     container_name: skaffaledatabase-container

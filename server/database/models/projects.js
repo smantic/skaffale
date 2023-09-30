@@ -1,12 +1,5 @@
-require('dotenv').config({path: '../.env'})
 const { Sequelize, DataTypes } = require('sequelize')
-const sequelize = new Sequelize(
-    process.env.POSTGRES_DATABASE,
-    process.env.POSTGRES_USER,
-    process.env.POSTGRES_PASSWORD,
-    { host: 'localhost', dialect: 'postgres' }
-)
-const uuid = require('uuid').v4
+const sequelize = require("../connection/connection")
 
 const Projects = sequelize.define( 'Projects', {
     name: {

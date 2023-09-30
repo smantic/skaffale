@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'})
+require('dotenv').config({path: __dirname + '/./../../.env'})
 const { Sequelize } = require('sequelize')
 
 const sequelize = new Sequelize( process.env.POSTGRES_DATABASE, 
@@ -8,7 +8,7 @@ const sequelize = new Sequelize( process.env.POSTGRES_DATABASE,
 
 const testConnection = async () => {
     try {
-        await sequelize.authenticate();
+        await sequelize.authenticate()
         console.log('Connection has been established successfully.')
         process.exit(0)
     } catch (error) {
