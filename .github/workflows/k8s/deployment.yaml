@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skaffale
+  labels:
+    name: skaffale
+  namespace: skaffale
+spec:
+  selector:
+    matchLabels:
+      app: skaffale
+  replicas:
+  template:
+    metadata:
+      labels:
+        app: skaffale
+    spec:
+      containers:
+        - name: skaffale-client
+          image: ghcr.io/lukfd/skaffale/client:main
+          ports:
+            - containerPort: 8080
+        - name: skaffale-api
+          image: ghcr.io/lukfd/skaffale/server:main
+          ports:
+            - containerPort: 3000
+        - name: skaffale-database
+          image: ghcr.io/lukfd/skaffale/postgres:main
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: skaffale-database-secret
+                  key: password
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: skaffale-database-secret
+                  key: username
+            - name: POSTGRES_DATABASE
+              value: "skaffaledatabase"
+          ports:
+            - containerPort: 5432
+        - name: adminer
+          image: ghcr.io/lukfd/skaffale/adminer:main
+          ports:
+            - containerPort: 8080
+            - nodePort: 3001

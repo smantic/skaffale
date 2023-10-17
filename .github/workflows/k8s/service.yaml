@@ -8,5 +8,4 @@ spec:
   selector:
     app: skaffale
   ports:
-    - port: 8080
-      nodePort: 30088
+    port: 8080
