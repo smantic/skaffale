@@ -31,12 +31,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: skaffale-database-secret
-                  key: password
+                  key: postgres_password
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: skaffale-database-secret
-                  key: username
+                  key: postgres_username
             - name: POSTGRES_DATABASE
               value: "skaffaledatabase"
           ports:
