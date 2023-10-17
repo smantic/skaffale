@@ -20,6 +20,7 @@ spec:
           image: ghcr.io/lukfd/skaffale/client:main
           ports:
             - containerPort: 8080
+            - nodePort: 8080
         - name: skaffale-api
           image: ghcr.io/lukfd/skaffale/server:main
           ports:
