@@ -22,8 +22,10 @@ jobs:
         include:
           - dockerfile: ./server/Dockerfile
             image: ghcr.io/smantic/skaffle/server
+            context: server
           - dockerfile: ./client/Dockerfile
             image: ghcr.io/smantic/skaffle/client
+            context: client
 
     steps:
       - name: Checkout repository
@@ -49,6 +51,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
+          context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
           push: true
           labels: ${{ steps.meta.outputs.labels }}
