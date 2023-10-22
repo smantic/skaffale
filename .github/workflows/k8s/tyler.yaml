@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skaffale
+  labels:
+    name: skaffale
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: skaffale
+  template:
+    metadata:
+      labels:
+        app: skaffale
+    spec:
+      containers:
+      - name: frontend
+        image: ghcr.io/smantic/skaffale:client-latest
+        ports:
+        - containerPort: 8080
+          name: web-server
+      - name: web-server 
+        image: ghcr.io/smantic/server:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: skaffale
+spec:
+  selector:
+    app: skaffale
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: web-server
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: skaffale
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+    - web
+  routes:
+  - match: Host(`api.skaffale.dev`) || Host(`www.skaffale.com`) 
+    kind: Rule
+    services:
+    - name: skaffale
+      port: 8080
+  tls:
+    certResolver: myresolver

@@ -1,0 +1,18 @@
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: skaffale
+    namespace: default
+spec:
+    entryPoints:
+    - websecure
+    - web
+    routes:
+    - match: Host(`api.skaffale.dev`) || Host(`www.skaffale.com`) 
+    kind: Rule
+    services:
+    - name: skaffale
+        port: 8080
+    tls:
+    certResolver: myresolver
