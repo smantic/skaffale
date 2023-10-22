@@ -36,6 +36,8 @@ spec:
                   key: postgres_username
             - name: POSTGRES_DATABASE
               value: "skaffaledatabase"
+          command: ["/usr/local/bin/node"]
+          args: ["/skaffaleapi/database/setup/setup.js"]
           ports:
             - containerPort: 3000
         - name: skaffale-database
