@@ -16,6 +16,14 @@ jobs:
     permissions:
       contents: write
       packages: write
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - dockerfile: ./server/Dockerfile
+            image: ghcr.io/smantic/skaffle/server
+          - dockerfile: ./client/Dockerfile
+            image: ghcr.io/smantic/skaffle/client
 
     steps:
       - name: Checkout repository
@@ -36,22 +44,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/server, ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/client,
+          images: ${{ matrix.image }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: client
-          labels: ${{ steps.meta.outputs.labels }}
+          file: ${{ matrix.dockerfile }}
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-        with:
-          context: server
           labels: ${{ steps.meta.outputs.labels }}
-          push: true
           tags: ${{ steps.meta.outputs.tags }}
 
       - name: Tailscale
