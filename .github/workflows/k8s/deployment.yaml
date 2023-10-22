@@ -23,6 +23,19 @@ spec:
             - nodePort: 8080
         - name: skaffale-api
           image: ghcr.io/lukfd/skaffale/server:main
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: skaffale-database-secret
+                  key: postgres_password
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: skaffale-database-secret
+                  key: postgres_username
+            - name: POSTGRES_DATABASE
+              value: "skaffaledatabase"
           ports:
             - containerPort: 3000
         - name: skaffale-database
