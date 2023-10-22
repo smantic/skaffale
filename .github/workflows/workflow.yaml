@@ -21,14 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Pull postgres image
-        run:
-          docker pull postgres
-
-      - name: Pull adminer image
-        run:
-          docker pull adminer
-
       - name: Docker Setup Buildx
         id: buildx
         uses: docker/setup-buildx-action@94ab11c41e45d028884a99163086648e898eed25
@@ -78,17 +70,5 @@ jobs:
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           namespace: default
 
-      - name: Apply kube namespace
-        run: kubectl apply -f ./k8s/namespace.yaml
-
-      - name: Apply kube secrets
-        run: kubectl apply -f ./k8s/secret.yaml
-
-      - name: Apply kube deploy
-        run: kubectl apply -f ./k8s/deployment.yaml
-
-      - name: Apply kube service
-        run: kubectl apply -f ./k8s/service.yaml
-      
-      - name: Apply kube ingress
-        run: kubectl apply -f ./k8s/ingress.yaml
+      - name: Deploy
+        run: kubectl rollout restart deployment skaffale
